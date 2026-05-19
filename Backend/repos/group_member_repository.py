@@ -11,7 +11,6 @@ class GroupMemberRepository:
         self.session = session
 
     async def add(self, user_id: UUID, group_id: UUID) -> GroupMember:
-
         member = GroupMember(group_id=group_id, user_id=user_id)
 
         self.session.add(member)
@@ -21,7 +20,6 @@ class GroupMemberRepository:
         return member
 
     async def get(self, user_id: UUID, group_id: UUID) -> GroupMember | None:
-
         result = await self.session.execute(
             select(GroupMember).where(
                 GroupMember.user_id == user_id, GroupMember.group_id == group_id
@@ -31,7 +29,6 @@ class GroupMemberRepository:
         return result.scalar_one_or_none()
 
     async def list_members(self, group_id: UUID) -> list[GroupMember]:
-
         result = await self.session.execute(
             select(GroupMember).where(GroupMember.group_id == group_id)
         )
@@ -39,7 +36,6 @@ class GroupMemberRepository:
         return list(result.scalars().all())
 
     async def remove(self, member: GroupMember) -> None:
-
         await self.session.delete(member)
         await self.session.commit()
 

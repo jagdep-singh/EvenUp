@@ -14,7 +14,6 @@ class ExpenseRepository:
     async def create(
         self, expense: GroupExpense, splits: list[ExpenseSplit]
     ) -> GroupExpense:
-
         self.session.add(expense)
 
         for split in splits:
@@ -26,7 +25,6 @@ class ExpenseRepository:
         return expense
 
     async def get_by_id(self, expense_id: UUID) -> GroupExpense | None:
-
         result = await self.session.execute(
             select(GroupExpense).where(GroupExpense.id == expense_id)
         )
@@ -34,7 +32,6 @@ class ExpenseRepository:
         return result.scalar_one_or_none()
 
     async def list_by_group(self, group_id: UUID) -> list[GroupExpense]:
-
         groups = await self.session.execute(
             select(GroupExpense).where(GroupExpense.group_id == group_id)
         )
@@ -42,7 +39,6 @@ class ExpenseRepository:
         return list(groups.scalars().all())
 
     async def update(self, expense: GroupExpense, data: dict) -> GroupExpense:
-
         for key, val in data.items():
             setattr(expense, key, val)
 
@@ -56,7 +52,6 @@ class ExpenseRepository:
         await self.session.commit()
 
     async def get_splits(self, expense_id: UUID) -> list[ExpenseSplit]:
-
         result = await self.session.execute(
             select(ExpenseSplit).where(ExpenseSplit.expense_id == expense_id)
         )

@@ -12,7 +12,6 @@ from schemas.groups import GroupCreate, GroupMemberResponse, GroupResponse, Grou
 async def create_group(
     group_data: GroupCreate, db: AsyncSession, user_id: UUID
 ) -> dict:
-
     repo = GroupRepository(db)
     member_repo = GroupMemberRepository(db)
 
@@ -29,7 +28,6 @@ async def create_group(
 
 
 async def list_groups(db: AsyncSession, user_id: UUID) -> dict:
-
     repo = GroupRepository(db)
 
     groups = await repo.get_user_groups(user_id)
@@ -44,7 +42,6 @@ async def list_groups(db: AsyncSession, user_id: UUID) -> dict:
 
 
 async def get_group(db: AsyncSession, group_id: UUID, user_id: UUID) -> dict:
-
     repo = GroupRepository(db)
     member_repo = GroupMemberRepository(db)
 
@@ -61,7 +58,6 @@ async def get_group(db: AsyncSession, group_id: UUID, user_id: UUID) -> dict:
 async def update_group(
     db: AsyncSession, group_id: UUID, group_data: GroupUpdate, user_id: UUID
 ) -> dict:
-
     repo = GroupRepository(db)
 
     group = await repo.get_by_id(group_id)
@@ -82,7 +78,6 @@ async def update_group(
 
 
 async def delete_group(group_id: UUID, user_id: UUID, db: AsyncSession) -> dict:
-
     repo = GroupRepository(db)
 
     group = await repo.get_by_id(group_id)
@@ -102,7 +97,6 @@ async def delete_group(group_id: UUID, user_id: UUID, db: AsyncSession) -> dict:
 async def add_member(
     group_id: UUID, user_id: UUID, db: AsyncSession, current_user_id: UUID
 ) -> dict:
-
     repo = GroupRepository(db)
     member_repo = GroupMemberRepository(db)
 
@@ -130,7 +124,6 @@ async def add_member(
 async def remove_member(
     group_id: UUID, user_id: UUID, db: AsyncSession, current_user_id: UUID
 ) -> dict:
-
     repo = GroupRepository(db)
     member_repo = GroupMemberRepository(db)
 
@@ -151,7 +144,6 @@ async def remove_member(
 
 
 async def list_members(group_id: UUID, db: AsyncSession, current_user_id: UUID) -> dict:
-
     repo = GroupRepository(db)
     member_repo = GroupMemberRepository(db)
 

@@ -23,7 +23,6 @@ async def create(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-
     return await create_group(group_data, db, user.id)
 
 
@@ -31,7 +30,6 @@ async def create(
 async def list(
     db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user)
 ):
-
     return await list_groups(db, user.id)
 
 
@@ -41,7 +39,6 @@ async def get(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-
     return await get_group(db, group_id, user.id)
 
 
@@ -52,7 +49,6 @@ async def update(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-
     return await update_group(db, group_id, group_data, user.id)
 
 
@@ -62,5 +58,4 @@ async def delete(
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ):
-
     return await delete_group(group_id, user.id, db)
