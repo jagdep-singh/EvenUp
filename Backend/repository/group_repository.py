@@ -23,9 +23,16 @@ class GroupRepository:
 
         return result.scalar_one_or_none()
 
-    async def get_user_groups(self, user_id: UUID, limit: int | None = None) -> list[Group]:
+    async def get_user_groups(
+        self, user_id: UUID, limit: int | None = None
+    ) -> list[Group]:
 
-        query = (select(Group).join(GroupMember).where(GroupMember.user_id == user_id).order_by(Group.created_at.desc()))
+        query = (
+            select(Group)
+            .join(GroupMember)
+            .where(GroupMember.user_id == user_id)
+            .order_by(Group.created_at.desc())
+        )
 
         if limit is not None:
             query = query.limit(limit)

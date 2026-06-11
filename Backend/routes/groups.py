@@ -33,7 +33,9 @@ async def create(
 
 @router.get("/", response_model=SuccessResponse[list[GroupResponse]])
 async def list_users(
-    db: AsyncSession = Depends(get_db), user: User = Depends(get_current_user), limit: int | None = None
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+    limit: int | None = None,
 ):
     return await list_groups(db, user.id, limit)
 
