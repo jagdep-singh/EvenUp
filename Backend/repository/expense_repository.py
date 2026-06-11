@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from models.expense_splits import ExpenseSplit
 from models.group_expenses import GroupExpense
+from schemas.expense_split import ExpenseOwe, ExpensePaid
 
 
 class ExpenseRepository:
@@ -77,7 +78,7 @@ class ExpenseRepository:
 
     async def get_expense_paid_by_user(
         self, group_id: UUID, user_id: UUID, limit: 20
-    ) -> list[GroupExpense]:
+    ) -> list[ExpensePaid]:
         result = await self.session.execute(
             select(GroupExpense)
             .where(GroupExpense.group_id == group_id, GroupExpense.paid_by == user_id)
@@ -86,9 +87,7 @@ class ExpenseRepository:
         )
         return list[result.scalars().all()]
 
-    async def get_expense_owed_by_user(
-        self, user_id: UUID, limit: 20
-    ) -> list[ExpenseSplit]:
+    async def get_expense_owed_user(self, user_id: UUID, limit: 20) -> list[ExpenseOwe]:
         result = await self.session.execute(
             select(ExpenseSplit).where(ExpenseSplit.user_id == user_id).limit(limit)
         )
