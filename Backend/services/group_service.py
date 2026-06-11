@@ -26,11 +26,11 @@ async def create_group(
 
 
 async def list_groups(
-    db: AsyncSession, user_id: UUID
+    db: AsyncSession, user_id: UUID, limit: int | None = None
 ) -> SuccessResponse[list[GroupResponse]]:
     repo = GroupRepository(db)
 
-    groups = await repo.get_user_groups(user_id)
+    groups = await repo.get_user_groups(user_id, limit)
 
     if not groups:
         raise HTTPException(status_code=404, detail="Group not found")
