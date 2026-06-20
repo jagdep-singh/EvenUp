@@ -97,8 +97,8 @@ async def get_expense(
     return SuccessResponse(
         message="Expense fetched successfully",
         data={
-            ExpenseResponse.model_validate(expense),
-            [ExpenseSplitResponse.model_validate(s) for s in splits],
+            "expense": ExpenseResponse.model_validate(expense),
+            "splits": [ExpenseSplitResponse.model_validate(s) for s in splits],
         },
     )
 
